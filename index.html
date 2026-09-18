@@ -315,6 +315,7 @@
   .bg-instagram{ background:radial-gradient(circle at 30% 110%, #ffdb73, #fd5949 45%, #d6249f 70%, #285AEB); }
   .bg-facebook{ background:#1877F2; }
   .bg-whatsapp{ background:#25D366; }
+  .bg-contact{ background:linear-gradient(135deg,#2E7D5B,#1D5C41); }
   .bg-web{ background:var(--navy); }
   .bg-mail{ background:var(--navy-deep); }
   .bg-maps{ background:#fff; border:1px solid var(--line); }
@@ -458,6 +459,17 @@
       <span class="chevron"></span>
     </a>
 
+    <a class="link-row" href="#" id="save-contact-btn" onclick="saveContact(event)">
+      <span class="icon-badge bg-contact">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" stroke="#fff" stroke-width="1.6"/><path d="M3.5 19c.6-3 2.7-4.7 5.5-4.7S13.9 16 14.5 19" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M18.2 9v6M15.2 12h6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <span class="link-text">
+        <div class="link-label" data-i18n="contact-label">Enregistrer le contact</div>
+        <div class="link-sub" data-i18n="contact-sub">Ajouter à vos contacts</div>
+      </span>
+      <span class="chevron"></span>
+    </a>
+
     <a class="link-row" href="https://twonecars.com/" target="_blank" rel="noopener">
       <span class="icon-badge bg-web">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.3" stroke="#fff" stroke-width="1.6"/><path d="M3.9 12h16.2M12 3.7c2.1 2.3 3.2 5.1 3.2 8.3s-1.1 6-3.2 8.3c-2.1-2.3-3.2-5.1-3.2-8.3s1.1-6 3.2-8.3z" stroke="#fff" stroke-width="1.6"/></svg>
@@ -517,6 +529,8 @@
       desc: "Une agence de location de voitures fiable et abordable : véhicules bien entretenus, réservation rapide et une équipe à votre écoute, 7j/7.",
       cta: "Voir nos voitures disponibles",
       "fb-sub": "Notre page officielle",
+      "contact-label": "Enregistrer le contact",
+      "contact-sub": "Ajouter à vos contacts",
       "web-label": "Site web",
       "mail-label": "Email",
       "maps-label": "Itinéraire Google Maps",
@@ -529,6 +543,8 @@
       desc: "وكالة موثوقة لكراء السيارات بأسعار مناسبة: سيارات في حالة جيدة، حجز سريع، وفريق في خدمتكم طوال أيام الأسبوع.",
       cta: "شاهد سياراتنا المتوفرة",
       "fb-sub": "صفحتنا الرسمية",
+      "contact-label": "حفظ جهة الاتصال",
+      "contact-sub": "أضف إلى جهات اتصالك",
       "web-label": "الموقع الإلكتروني",
       "mail-label": "البريد الإلكتروني",
       "maps-label": "الاتجاهات عبر خرائط كوكل",
@@ -537,6 +553,23 @@
       footer: "© 2026 Two One Cars — جميع الحقوق محفوظة"
     }
   };
+
+  function saveContact(e){
+    e.preventDefault();
+    const vcard =
+      "BEGIN:VCARD\r\n" +
+      "VERSION:3.0\r\n" +
+      "FN:TWO ONE CARS\r\n" +
+      "ORG:TWO ONE CARS\r\n" +
+      "TEL;TYPE=CELL,VOICE:+212661280901\r\n" +
+      "END:VCARD\r\n";
+    const link = document.createElement('a');
+    link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+    link.setAttribute('download', 'TWO-ONE-CARS.vcf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
   function setLang(lang){
     const html = document.documentElement;
